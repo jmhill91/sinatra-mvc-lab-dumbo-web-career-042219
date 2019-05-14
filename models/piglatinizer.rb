@@ -1,11 +1,18 @@
- class Piglatinizer
-   attr_reader :input
+ class PigLatinizer
 
-   def initialize(input)
-     @input = input.downcase
-   end
 
-   def find_first_vowel
-     @input.scan(/[aeoui]/).count
+   def piglatinize(phrase)
+     phrase.split(' ').map do |word|
+    piglatinize_word(word)
+    end.join(' ')
+  end
 
+  def piglatinize_word(word)
+    vowel_index = word.index(/[aeiouAEIOU]/)
+    if vowel_index == 0
+      "#{word}way"
+    else
+      "#{word[(vowel_index..word.length)]}#{word[0..vowel_index-1]}ay"
+    end
+  end
  end
